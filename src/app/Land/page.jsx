@@ -4,7 +4,7 @@ import Image from "next/image.js";
 import Product from '../Product/page'; 
 import { AddCartProvider } from '../addCartProvider';
 
-function land() {
+function Land() {
   const words = ["BH", "AR", "AT"];
   const colors = ["red", "white", "green"];
   const [displayText, setDisplayText] = useState("");

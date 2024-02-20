@@ -56,9 +56,9 @@ const AddCart = () => {
     setTotalPrice(calculatedTotalPrice);
   }
 
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [obj.cart]); // Calculate the total price whenever the cart changes
+  // useEffect(() => {
+  //   calculateTotalPrice();
+  // }, [obj.cart]); // Calculate the total price whenever the cart changes
 
   const renderCart = obj.cart.map((t, i) => (
     <div className="w-screen md:h-48 bg-slate-200   p-4 sm:p-0 m-3 shadow-2xl drop-shadow-2xl" key={i}>
