@@ -1,20 +1,12 @@
 "use client"
 import React, { useContext, useState } from 'react';
-import { addCartContext } from '../context';
-import ProductView from '../ProductView/page'; // Import ProductView component
+// Import ProductView component
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 const Product = ({ id, imageUrl, productName, price, productDescription ,longdesc}) => {
-  const obj = useContext(addCartContext);
-  const [notificationMessage, setNotificationMessage] = useState('');
-  const [showNotification, setShowNotification] = useState(false);
-  const [productViewData, setProductViewData] = useState(null); // State for ProductView
-
-
-
-
+  
   
   const handleAddToCart =  async() => {
         
@@ -22,31 +14,11 @@ const Product = ({ id, imageUrl, productName, price, productDescription ,longdes
       
       const response = await axios.post("/api/user/addCart", {
         productId:id
-      });
+
+      }
+      );
       console.dir(response)
-    } catch (error) {
-      console.log(error)
-    }
-
- 
-
-
-
-
-
-    const existingProductIndex = obj.cart.findIndex((item) => item.productName === productName);
-
-    if (existingProductIndex !== -1) {
-      // Product with the same name exists, update its quantity
-      const updatedCart = [...obj.cart];
-      updatedCart[existingProductIndex].quantity += 1;
-      obj.setCart(updatedCart);
-    } else {
-      // Product with the same name doesn't exist, add it to the cart
-      obj.setCart([...obj.cart, { imageUrl, productName, productDescription, price, quantity: 1 }]);
-    }
-    
-
+      
     toast.success('Added to Cart!', {
       position: "top-right",
       autoClose: 1200,
@@ -57,6 +29,17 @@ const Product = ({ id, imageUrl, productName, price, productDescription ,longdes
       progress: undefined,
       theme: "colored",
       });
+    } catch (error) {
+      console.log(error)
+    }
+
+ 
+
+
+
+
+
+   
 
 
 
@@ -67,28 +50,6 @@ const Product = ({ id, imageUrl, productName, price, productDescription ,longdes
 
 
 
-    // setNotificationMessage('Product added successfully!');
-    // setShowNotification(true);
-
-    // // Automatically hide the notification after 1.5 seconds
-    // setTimeout(() => {
-    //   setShowNotification(false);
-    // }, 1500);
-    localStorage.setItem('cart', JSON.stringify(obj.cart));
-
-    // Set the state to show the ProductView
-    setProductViewData({ imageUrl, productName, productDescription, show: true });
-  };
-  function renderProduct(productName){
-   obj.setName(productName);
-  obj.setImge(imageUrl)
-
-   obj.setPrice(price)
-   obj.setDesc(longdesc)
-   obj.setshortDesc(productDescription);
-
-   console.log(obj.name);
-  //  console.log(obj.img)
   }
 
   return (

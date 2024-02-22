@@ -1,3 +1,3 @@
-"use client"
-import { createContext } from "react"
- export const addCartContext = createContext({})
+// "use client"
+// import { createContext } from "react"
+//  export const addCartContext = createContext({})
