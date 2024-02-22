@@ -88,5 +88,5 @@ function Land() {
   );
 }
 
-export default land;
+export default Land;
 

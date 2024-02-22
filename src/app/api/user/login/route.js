@@ -89,6 +89,7 @@ const response = NextResponse.json({
 response.cookies.set("token", accessToken, options
 )
 console.log("cokkie send succefully");
+console.log(`logged user ${loggedInUser}`)
 // console.log(`response status is ${response.data.status}`)
 return response;
   } catch (error) {
@@ -99,6 +100,7 @@ return response;
         message: "Internal Server Error",
         success: false,
       },
+      data:loggedInUser,
     });
   }
 }

@@ -108,7 +108,9 @@ const Men = () => {
           <div className="flex flex-wrap drop-shadow-2xl shadow-2xl">
             {products.map((product, index) => (
               <Product
+              
                 key={index}
+                id={product._id}
                 imageUrl={product.images[0]}
                 productName={product.name}
                 price={product.price}

@@ -5,7 +5,8 @@ import ProductView from '../ProductView/page'; // Import ProductView component
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const Product = ({ imageUrl, productName, price, productDescription ,longdesc}) => {
+import axios from 'axios';
+const Product = ({ id, imageUrl, productName, price, productDescription ,longdesc}) => {
   const obj = useContext(addCartContext);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [showNotification, setShowNotification] = useState(false);
@@ -15,9 +16,17 @@ const Product = ({ imageUrl, productName, price, productDescription ,longdesc}) 
 
 
   
-  const handleAddToCart =  () => {
+  const handleAddToCart =  async() => {
         
-    
+    try {
+      
+      const response = await axios.post("/api/user/addCart", {
+        productId:id
+      });
+      console.dir(response)
+    } catch (error) {
+      console.log(error)
+    }
 
  
 
