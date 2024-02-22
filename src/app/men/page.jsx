@@ -1,6 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import Product from '../Product/page';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Men = () => {
   const [originalProducts, setOriginalProducts] = useState([]);
@@ -9,7 +11,7 @@ const Men = () => {
   const [sortBy, setSortBy] = useState('none'); // 'none', 'lowToHigh', 'highToLow'
   const [loading, setLoading] = useState(true);
 
-  const menProductsApi = "/api/user/getMensWear"; // Adjust the API endpoint
+  const menProductsApi = "/api/user/getMensWear";
 
   useEffect(() => {
     const fetchMenProducts = async () => {
@@ -42,12 +44,21 @@ const Men = () => {
     setPriceRange({ min: parseFloat(newValue[0]), max: parseFloat(newValue[1]) });
   };
 
-  useEffect(() => {
-    const filteredProducts = originalProducts.filter(
-      (product) => parseFloat(product.price) >= priceRange.min && parseFloat(product.price) <= priceRange.max
-    );
-    setProducts(filteredProducts);
-  }, [priceRange]);
+  const handleProductAddedToCart = (r) => {
+    // You can handle any actions or state updates here
+    // For example, update the cart count or show a confirmation message
+    console.log('response data is below')
+    console.dir(r)
+    
+   let status = r?.status||"400"
+   let message = r?.message||"something wrong"
+   if(status==200){
+  toast.success(r.data.message)
+   }
+   else{
+    toast.error(message)
+   }
+  };
 
   return (
     <div className="container mx-auto p-4 pt-28">
@@ -61,54 +72,10 @@ const Men = () => {
         </div>
       ) : (
         <div>
-          <div className="w-full px-6 mb-4 bg-gray-100 shadow-2xl rounded-xl py-5">
-            <div className="mr-4">
-              <label className="mr-3">Sort by Price:</label>
-              <select
-                className="border rounded p-2"
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="none">None</option>
-                <option value="lowToHigh">Low to High</option>
-                <option value="highToLow">High To Low</option>
-              </select>
-              <button
-                className="bg-blue-500 text-white p-3 hover:bg-blue-600 mt-2 transition duration-300 ml-3 rounded-lg"
-                onClick={sortProductsByPrice}
-              >
-                Sort
-              </button>
-            </div>
-            <div>
-              <label>Price Range:</label>
-              <div className="flex items-center">
-                <p className="mr-2">${priceRange.min}</p>
-                <input
-                  type="range"
-                  min="0"
-                  max="200"
-                  step="1"
-                  value={priceRange.min}
-                  onChange={(e) => setPriceRange({ ...priceRange, min: +e.target.value })}
-                  className="w-full"
-                />
-                <p className="ml-2">${priceRange.max}</p>
-                <input
-                  type="range"
-                  min="0"
-                  max="200"
-                  step="1"
-                  value={priceRange.max}
-                  onChange={(e) => setPriceRange({ ...priceRange, max: +e.target.value })}
-                  className="w-full"
-                />
-              </div>
-            </div>
-          </div>
+          {/* ... (existing code) */}
           <div className="flex flex-wrap drop-shadow-2xl shadow-2xl">
             {products.map((product, index) => (
               <Product
-              
                 key={index}
                 id={product._id}
                 imageUrl={product.images[0]}
@@ -116,11 +83,13 @@ const Men = () => {
                 price={product.price}
                 productDescription={product.description}
                 longdesc={product.longdesc}
+                onProductAddedToCart={handleProductAddedToCart} // Pass the callback function
               />
             ))}
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };
