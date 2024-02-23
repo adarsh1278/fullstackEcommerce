@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Product from '../Product/page';
-import { AddCartProvider } from '../addCartProvider';
+
 
 function Land() {
   const words = ["BH", "AR", "AT"];
