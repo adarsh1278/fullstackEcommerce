@@ -118,7 +118,7 @@ const Women = () => {
       (product) => product.price >= priceRange.min && product.price <= priceRange.max
     );
     setProducts(filteredProducts);
-  }, [priceRange, womenProducts]);
+  }, [priceRange]);
 
   return (
     <div className="container mx-auto p-4 pt-28
