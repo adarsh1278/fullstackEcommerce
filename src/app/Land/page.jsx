@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import Image from "next/image.js";
-import Product from '../Product/page'; 
+import Image from 'next/image';
+import Product from '../Product/page';
 import { AddCartProvider } from '../addCartProvider';
 
 function Land() {
@@ -48,43 +48,52 @@ function Land() {
   }, [wordIndex, letterIndex]);
 
   return (
-  
-    <div className="flex-col bg-[rgb(53,42,172)]   pt-20">
-    <div className="w-100 bg-[rgb(53,42,172)] flex sm:flex-row flex-col-reverse">
-        <div className=" sm:w-2/5 flex justify-center items-center flex-col shadow-6xl text-5xl m-6 mb-12">
-            <div className=" sm:text-4xl md:text-5xl text-gray-50 font-bold m-9 mt-0 mr-0 drop-shadow-2xl font-serif ">Shop With </div>
-            <div className=" sm:text-5xl lg:text-7xl md:text-6xl text-gray-50 font-extrabold drop-shadow-2xl font-serif"><div className=" inline-block  relative left-0 font-serif">E - </div> <span
-        className="whitespace-no-wrap overflow-hidden border-r border-black "
-        dangerouslySetInnerHTML={{ __html: displayText }}
-      ></span></div>
-          
-             </div>
-        <div className=" w-screen sm:w-3/5 right-0 text-xl">
-        <img  src="/homemain.png" alt="contact choolha chowka image" className=" right-0 w-100vw  w-screen bg-[#352AAC]" />
+    <div className="flex-col bg-[rgb(53,42,172)] pt-20">
+      <div className="w-100 bg-[rgb(53,42,172)] flex sm:flex-row flex-col-reverse">
+        <div className="sm:w-2/5 flex justify-center items-center flex-col shadow-6xl text-5xl m-6 mb-12">
+          <div className="sm:text-4xl md:text-5xl text-gray-50 font-bold m-9 mt-0 mr-0 drop-shadow-2xl font-serif">
+            Shop With
+          </div>
+          <div className="sm:text-5xl lg:text-7xl md:text-6xl text-gray-50 font-extrabold drop-shadow-2xl font-serif">
+            <div className="inline-block relative left-0 font-serif">
+              E -{" "}
+            </div>{" "}
+            <span
+              className="whitespace-no-wrap overflow-hidden border-r border-black "
+              dangerouslySetInnerHTML={{ __html: displayText }}
+            ></span>
+          </div>
         </div>
-       </div>
-       <div className=" flex flex-col sm:flex-row text-lg sm:p-5">
-       <Product
-        imageUrl="shoe1.jpg"
-        productName="Product 1"
-        productDescription="Description for Product 1 in 20 words or less."
-        price={24.99}
-      />
-       <Product
-        imageUrl="shoe1.jpg"
-        productName="Product 2"
-        productDescription="Description for Product 2 in 20 words or less."
-        price={24.99}
-      />
-       <Product
-        imageUrl="shoe1.jpg"
-        productName="Product 3"
-        productDescription="Description for Product 3 in 20 words or less."
-        price={24.99}
-      />
-      
-       </div>
-  </div>
+        <div className="w-screen sm:w-3/5 right-0 text-xl relative">
+          <Image
+            src="/homemain.png"
+            alt="contact choolha chowka image"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col sm:flex-row text-lg sm:p-5">
+        <Product
+          imageUrl="/shoe1.jpg"
+          productName="Product 1"
+          productDescription="Description for Product 1 in 20 words or less."
+          price={24.99}
+        />
+        <Product
+          imageUrl="/shoe1.jpg"
+          productName="Product 2"
+          productDescription="Description for Product 2 in 20 words or less."
+          price={24.99}
+        />
+        <Product
+          imageUrl="/shoe1.jpg"
+          productName="Product 3"
+          productDescription="Description for Product 3 in 20 words or less."
+          price={24.99}
+        />
+      </div>
+    </div>
   );
 }
 

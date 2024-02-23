@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+import Image from 'next/image'; // Import the Image component
 
 const Product = ({ id, imageUrl, productName, price, productDescription, longdesc, onProductAddedToCart }) => {
   const [loading, setLoading] = useState(false);
@@ -15,7 +16,6 @@ const Product = ({ id, imageUrl, productName, price, productDescription, longdes
         productId: id
       });
       console.dir(response.data);
-     
 
       // Call the callback function passed from the Men page
       if (onProductAddedToCart) {
@@ -24,7 +24,7 @@ const Product = ({ id, imageUrl, productName, price, productDescription, longdes
     } catch (error) {
       console.log("eroor below----")
       console.log(error);
-      let response = error?.response?.data||"Something wrong"
+      let response = error?.response?.data || "Something wrong";
       if (onProductAddedToCart) {
         onProductAddedToCart(response);
       }
@@ -37,7 +37,15 @@ const Product = ({ id, imageUrl, productName, price, productDescription, longdes
     <>
       <div className="w-full md:w-1/2 lg:w-1/3 p-4">
         <div className="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <img src={imageUrl} alt={productName} className="w-full h-48 object-cover" />
+          {/* Use the Next.js Image component */}
+          <Image
+            src={imageUrl}
+            alt={productName}
+            width={500} // Specify the width (adjust as needed)
+            height={300} // Specify the height (adjust as needed)
+            objectFit="cover" // Set the object fit property
+            className="w-full h-48 object-cover"
+          />
           <div className="p-4">
             <h2 className="text-2xl font-semibold text-gray-800" onClick={() => {
               renderProduct(productName);
@@ -59,7 +67,6 @@ const Product = ({ id, imageUrl, productName, price, productDescription, longdes
             </div>
           </div>
         </div>
-       
       </div>
     </>
   );

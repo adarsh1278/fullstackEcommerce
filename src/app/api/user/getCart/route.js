@@ -2,19 +2,29 @@ import { NextResponse } from "next/server";
 import { Cart } from "@/models/cart.model"; // Adjust the path based on your project structure
 import { Product } from "@/models/product.model"; // Adjust the path based on your project structure
 import connectdb from "@/dbConfig/dbconfig";
-
+import jwt from "jsonwebtoken";
+import { User } from "lucide-react";
 export async function GET(req) {
   try {
-    const userId = "65d311defa9671da833b1c20"
-
-    console.log("User ID is given below");
-    console.log(userId);
-
-    if (!userId) {
-      return NextResponse.json({ message: "Missing user ID", error: true }, { status: 400 });
+    const token = String(await req.cookies.get('token')?.value||""); // Explicitly cast to string
+   console.log("inside post")
+     await connectdb();
+    if (!token) {
+      return NextResponse.json({ message: "Invalid or missing token", error: true }, { status: 400 });
     }
+console.log("token found")
+      const decodedToken =  await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-    await connectdb();
+      if (!decodedToken || typeof decodedToken !== 'object') {
+        return NextResponse.json({ message: "Invalid decoded token", error: true }, { status: 400 });
+      }
+console.log("token valid")
+      const userId = decodedToken._id;
+
+
+    // const user = await User.findById(userId).select("-password");
+
+    // console.log(`user found ${user}`);
 
     const cart = await Cart.findOne({ user: userId });
 
